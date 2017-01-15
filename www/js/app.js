@@ -13,7 +13,7 @@ var ets_data = {
                 'values': {'carbon_footprint': 3500000, 'free_allowances': 1200000, 'compliance_obligation': 2300000, 'penalty_price': 50},
                 'projects': [
                   {'id':1, 'name': 'Auction Allowances', 'type': 'ets', 'price': 22, 'limit': 1500000, 'colour':'#3366cc', 'optimal_purchase_volume':1350000 },
-                  {'id':2, 'name': 'Carbon Offsets', 'type': 'ets', 'price': 4, 'limit': 500000, 'colour':'#f4ad42', 'optimal_purchase_volume':500000 },
+                  {'id':2, 'name': 'Carbon Offsets', 'type': 'ets', 'price': 4, 'limit': 500000, 'colour':'#ffffb2', 'optimal_purchase_volume':500000 },
                   {'id':3, 'name': 'Motion Sensor Lighting Retrofit', 'type': 'project', 'price': 10, 'volume': 250000, 'colour':'#0de0e8', 'optimal_purchase_volume':250000 },
                   {'id':4, 'name': 'Electric Car Fleet', 'type': 'project', 'price': 5000, 'volume': 1500000, 'colour':'#ff9900', 'optimal_purchase_volume':0 },
                   {'id':5, 'name': 'Power On Use Vending Machines', 'type': 'project', 'price': 2, 'volume': 200000, 'colour':'#109618', 'optimal_purchase_volume':200000 },
@@ -61,7 +61,7 @@ function init()
     items_html += '      </td>';
     items_html += '    </tr>';
     items_html += '    <tr>';
-    items_html += '      <td>';
+    items_html += '      <td style="background-color:' + projects[key].colour  + '">';
     items_html += '         &nbsp;';
     items_html += '      </td>';
     items_html += '      <td>';
@@ -197,11 +197,33 @@ function update(){
   avgcostpertco2e = avgcostpertco2e.toFixed(2);
   $('#avgcostpertco2e_dsp').html('$' + numberWithCommas(avgcostpertco2e));
 
+  //set btn colour
+  $('#penalty_dsp').parent().removeClass('btn-warning');
+  $('#penalty_dsp').parent().removeClass('btn-info');
+  $('#avgcostpertco2e_dsp').parent().removeClass('btn-warning');
+  $('#avgcostpertco2e_dsp').parent().removeClass('btn-info');
+
+  if (penalty_cost==0)
+  {
+    $('#penalty_dsp').parent().addClass('btn-info');
+  }
+  else {
+    $('#penalty_dsp').parent().addClass('btn-warning');
+  }
+
+  if (avgcostpertco2e==9.89)
+  {
+    $('#avgcostpertco2e_dsp').parent().addClass('btn-info');
+  }
+  else {
+    $('#avgcostpertco2e_dsp').parent().addClass('btn-warning');
+  }
+
   //update feedback
-  feedback(penalty_cost);
+  feedback(penalty_cost, avgcostpertco2e, volume_total);
 }
 
-function feedback(penalty){
+function feedback(penalty, avgcostpertco2e, volume_total){
   feedback_html = "";
   // Check order
   if (itemOrder!="item_5,item_2,item_3,item_1,item_4")
@@ -227,14 +249,17 @@ function feedback(penalty){
   };
 
   // Check Volume
-  if (penalty>0){
+  if (volume_total!=ets_data['values']['compliance_obligation']){
     feedback_html += "<li>Re-consider the volume of each project you have purchased and that you have not exceeded the limit.</li>";
   }
 
-  if (feedback_html == ""){
-    feedback_html = "You have reached your goal.";
+  if ((avgcostpertco2e>9.89) & (penalty==0)){
+    feedback_html += "<li>Re-consider the volume of each project you have purchased and that you have not exceeded the limit or purchased more than is required to achieve compliance.</li>";
   }
 
+  if (feedback_html == ""){
+    feedback_html = "Well done! You have ensured that Enerco is compliant and does not have to pay a penalty.";
+  }
 
   $('#feedback').html("");
   $('#feedback').html(feedback_html);

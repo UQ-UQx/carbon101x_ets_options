@@ -210,10 +210,10 @@ function SingleStackedBarChart(config)
                .attr("x2", width)    // x position of the second end of the line
                .attr("y2", y(p.complianceamount));    // y position of the second end of the line
              chartContainer.append("text")
-               .attr("x", 6)
-               .attr("y", y(p.complianceamount + 40000))
-               .attr("dx", 12)
-               .attr("dy", ".35em")
+               .attr("x", 0)
+               .attr("y", y(p.complianceamount + 50000))
+               .attr("dx", 0)
+               .attr("dy", ".5em")
                .text(p.compliancelabel + ": $" + p.complianceamount);
            }
 
