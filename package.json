@@ -1,0 +1,51 @@
+{
+  "name": "carbon101x_ets_options",
+  "version": "0.0.1",
+  "description": "Optimising ETS options interactive",
+  "scripts": {
+    "develop": "npm install && grunt run",
+    "build": "npm install && grunt build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UQ-UQx/lti_base_php.git"
+  },
+  "keywords": [
+    "Javascript",
+    "Boiler",
+    "Plate",
+    "D3"
+  ],
+  "author": "Aneesha Bakharia",
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/UQ-UQx/lti_base_php/issues"
+  },
+  "homepage": "https://github.com/UQ-UQx/lti_base_php#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "d3": "3.5.17",
+    "font-awesome": "^4.5.0",
+    "handlebars": "^4.0.5",
+    "jquery": "^2.2.2",
+    "jquery-knob": "^1.2.11",
+    "jquery-ui": "^1.10.5",
+    "jquery-ui-dist": "^1.12.0",
+    "lodash": "^4.15.0",
+    "mustache": "^2.2.1",
+    "underscore": "^1.8.3",
+    "d3-tip":"^0.6.7",
+    "d3-legend":"^1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "browserify": "^13.0.0",
+    "grunt-browserify": "^5.0.0",
+    "grunt-concurrent": "^2.3.0",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^1.1.0",
+    "watchify": "^3.7.0"
+  }
+}

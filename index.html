@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta charset="utf-8"
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="build/css/app.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/jquery-ui-dist/jquery-ui.min.css">
+</head>
+<body>
+
+	<div class="container-fluid">
+  <h1>Learn to Select Optimal ETS Options</h1>
+	<div class="row">
+		<div class="col-sm-12">
+			<p>In this ungraded practical, you will learn how to select optimal ETS options and projects in order to achieve the lowest possible Average Cost/CO<sub>2</sub>e and not incur a penalty cost.</p>
+			<p>Enerco's Scope 1 carbon footprint in Year 1 is 3,500,000 tCO<sub>2</sub>e. The Tasland Government has given you 1,200,000 free allowances. Thus, your remaining liability is 2,300,000 tCO<sub>2</sub>e. You must purchase one (1) allowance or offset for every 1 tCO<sub>2</sub>e of your company's liability, otherwise the government will fine you a penalty price ($50) for every tCO<sub>2</sub>e of your shortfall.</p>
+			<p>
+				<strong>Instructions:</strong>
+				<ol>
+					<li>Drag and re-order projects by the ascending (i.e., lowest to highest) price.</li>
+					<li>Select the cheapest projects/options by clicking on the checkbox next to the project/option name until the compliance obligation is met. The project will be added to the Volume and Cost graph to help you visualise if compliance has been met. The Penalty Cost and Average $/tCO<sub>2</sub>e are also displayed. Your goal is to achieve a Penalty Cost of 0.</li>
+					<li>If a project is selected, the abatement volume will be fixed.</li>
+					<li>If an ETS option is selected, you will need to decide on the amount to purchase, a limit may however apply. For cheaper ETS options, it is useful to purchase the maximum amount available.</li>
+				</ol>
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+				<div class="alert alert-warning">
+					<strong>Feedback:</strong>
+					<p>
+						<ul id="feedback">
+							<li>Drag and re-order projects by the ascending (i.e., lowest to highest) price.</li>
+						</ul>
+					</p>
+				</div>
+		</div>
+	</div>
+  <div class="row">
+    <div class="col-sm-6">
+			<form class="form-inline">
+				<ul id="sortable" class='sortable'>
+	      </ul>
+		</form>
+		</div>
+    <div class="col-sm-3">
+			<div class="text-center">
+				<a href="#" class="btn btn-danger btn-lg" role="button"><span id="penalty_dsp">$0</span> <br/>Penalty<br/></a>
+				<h3>Volume</h3>
+				<div class="chart_container">
+			    <svg class="chart"></svg>
+			  </div>
+			</div>
+		</div>
+    <div class="col-sm-3">
+			<div class="text-center">
+				<a href="#" class="btn btn-warning btn-lg text-center" role="button"><span id="avgcostpertco2e_dsp">$0</span> <br/>Avg $/tCO<sub>e</sub>e<br/></a>
+				<h3>Cost</h3>
+				<div class="chart_container">
+					<svg class="chart2"></svg>
+				</div>
+			</div>
+		</div>
+  </div>
+</div>
+
+<script type="text/javascript" src="build/js/app.js"></script>
+
+</body>
+</html>

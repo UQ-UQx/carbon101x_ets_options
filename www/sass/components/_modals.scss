@@ -1,0 +1,33 @@
+.modal_formula_container{
+
+	margin-bottom:30px;
+	border:2px solid black;
+	padding: 5px 5px !important;
+
+
+}
+
+.formula_status active{
+	text-align:center;
+	height:20px;
+	background-color:green;
+	.modal_formula_container{
+		border:2px solid green;
+
+	};
+	color:white
+}
+
+.modal_formula_container:hover{
+
+	background-color:#45E500;
+	cursor: pointer; cursor: hand;
+
+}
+
+.formula_selected{
+
+	background-color:#33A800 !important;
+
+
+}
