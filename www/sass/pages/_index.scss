@@ -105,7 +105,7 @@ path.domain {
 .btn { width:140px;}
 
 .sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1em; height: 90px;}
+.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1em; height: 110px;}
 .sortable li span { position: absolute; margin-left: -1.3em; }
 
 .movecursor {cursor: move;}
@@ -118,6 +118,8 @@ td {
     padding: 2px;
 }
 
-p{
-  font-size: 1em;
+body{
+  font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
 }
