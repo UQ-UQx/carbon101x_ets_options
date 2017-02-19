@@ -45,11 +45,11 @@ function SingleStackedBarChart(config)
     showcomplianceamount : true,
     complianceamount     : 100000,
     compliancelabel: 'Compliance Obligation',
-    maxamount: 1500000,
+    maxamount: 110000000,
     showtitle       : true,
     title           : "Compliance Volume",
     xaxislbl        : "",
-    yaxislbl        : "Abatement Volume (tCO2e)",
+    yaxislbl        : "Amount (tCO2e)",
     amountlbl       : "Volume"
   };
 
@@ -77,7 +77,13 @@ function SingleStackedBarChart(config)
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            return "<span><strong>" + d.project + "</strong></span><br/><span><strong>" + p.amountlbl + ": " + d.volume + "</strong></span>" ;
+            if (p.amountlbl=="Volume")
+            {
+              return "<span><strong>" + d.project + ": </strong></span><br/><span><strong>" + d.volume.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + "  tCO<sub>2</sub>e</strong></span>" ;
+            }
+            else{
+              return "<span><strong>" + d.project + ": </strong></span><br/><span><strong>$" + d.volume.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  + "</strong></span>" ;
+            }
           });
 
       this.update();
@@ -116,7 +122,7 @@ function SingleStackedBarChart(config)
       }
       else {
         x = d3.scale.ordinal()
-          .domain(['Year 1'])
+          .domain(['ETS Phase 1'])
           .rangeRoundBands([10, width-10], 0.02);
       }
 
@@ -143,7 +149,7 @@ function SingleStackedBarChart(config)
         .orient("left")
         .ticks(5)
         .tickSize(-width, 0, 0)
-        .tickFormat( function(d) { return d } );
+        .tickFormat( function(d) { return d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") } );
 
       var xAxis = d3.svg.axis()
         .scale(x)
@@ -214,7 +220,7 @@ function SingleStackedBarChart(config)
                .attr("y", y(p.complianceamount + 50000))
                .attr("dx", 0)
                .attr("dy", ".5em")
-               .text(p.compliancelabel + ": $" + p.complianceamount);
+               .text(p.compliancelabel + ": $" + p.complianceamount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
            }
 
   }

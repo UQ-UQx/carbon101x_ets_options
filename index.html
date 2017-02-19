@@ -14,22 +14,32 @@
   <h1>Learn to Select Optimal ETS Options</h1>
 	<div class="row">
 		<div class="col-xs-12">
-			<p>In this ungraded practical, you will learn how to select optimal ETS options and projects in order to achieve the lowest possible Average Cost/CO<sub>2</sub>e and not incur a penalty cost.</p>
-			<p>Enerco's Scope 1 carbon footprint in Year 1 is 3,500,000 tCO<sub>2</sub>e. The Tasland Government has given you 1,200,000 free allowances. Thus, your remaining liability is 2,300,000 tCO<sub>2</sub>e. You must purchase one (1) allowance or offset for every 1 tCO<sub>2</sub>e of your company's liability, otherwise the government will fine you a penalty price ($50) for every tCO<sub>2</sub>e of your shortfall.</p>
+			<p>
+				<strong>Scenario:</strong>
+				<br/>
+				Your company's Scope 1 carbon footprint is 2,300,000 tCO<sub>2</sub>e, making it liable under the Tasland Emissions Trading Scheme. You must purchase one (1) allowance or offset for every tCO<sub>2</sub>e of your company's liability, otherwise the government will fine you a penalty price ($50) for every tCO2e of your shortfall. You also have the option of implementing emissions abatement projects in order to lower your carbon footprint and therefore your compliance liability.
+				<br/>
+				<strong>Goal:</strong>
+				<ul>
+					<li>Achieve the lowest possible Average Cost of Compliance ($/tCO<sub>2</sub>e); and</li>
+					<li>Achieve a Penalty Cost of $0.</li>
+				</ul>
+			</p>
 			<p>
 				<strong>Instructions:</strong>
 				<ol>
-					<li>Drag and re-order projects by the ascending (i.e., lowest to highest) price.</li>
-					<li>Select the cheapest projects/options by clicking on the checkbox next to the project/option name until the compliance obligation is met. The project will be added to the Volume and Cost graph to help you visualise if compliance has been met. The Penalty Cost and Average $/tCO<sub>2</sub>e are also displayed. Your goal is to achieve a Penalty Cost of 0.</li>
-					<li>If a project is selected, the abatement volume will be fixed.</li>
-					<li>If an ETS option is selected, you will need to decide on the amount to purchase, a limit may however apply. For cheaper ETS options, it is useful to purchase the maximum amount available.</li>
+					<li>Drag the options into ascending order (i.e. lowest to highest) based on their cost per tCO<sub>2</sub>e. This will help you to prioritise the lowest cost options.</li>
+					<li>Select the cheapest options by clicking on the checkbox next to the option name.</li>
+					<li>If allowances or offsets are selected, you will need to decide on the amount to purchase (a limit may apply).</li>
+					<li>If an abatement project is selected, the amount of avoided CO<sub>2</sub>e will be fixed.</li>
+					<li>The selected options will be added to the __ and Total Cost graph to help you visualise if compliance has been met. The Penalty Cost and Average $/tCO<sub>2</sub>e are also displayed, to help you meet your goals.</li>
 				</ol>
 			</p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-				<div class="alert alert-warning">
+				<div id="feedback_container" class="alert alert-warning">
 					<strong>Feedback:</strong>
 					<p>
 						<ul id="feedback">
@@ -48,8 +58,8 @@
 		</div>
     <div class="col-xs-3">
 			<div class="text-center">
-				<a href="#" class="btn btn-warning btn-lg" role="button"><span id="penalty_dsp">$0</span> <br/>Penalty<br/></a>
-				<h3>Volume</h3>
+				<a href="#" class="btn btn-warning btn-lg" style="cursor: default;" role="button">Penalty<br/><span id="penalty_dsp">$0</span><br/></a>
+				<h3>Avoided tCO<sub>2</sub>e</h3>
 				<div class="chart_container">
 			    <svg class="chart"></svg>
 			  </div>
@@ -57,8 +67,8 @@
 		</div>
     <div class="col-xs-3">
 			<div class="text-center">
-				<a href="#" class="btn btn-warning btn-lg text-center" role="button"><span id="avgcostpertco2e_dsp">$0</span> <br/>Avg $/tCO<sub>e</sub>e<br/></a>
-				<h3>Cost</h3>
+				<a href="#" class="btn btn-warning btn-lg text-center" style="cursor: default;" role="button">Avg $/tCO<sub>2</sub>e<br/><span id="avgcostpertco2e_dsp">$0</span><br/></a>
+				<h3>Total Cost</h3>
 				<div class="chart_container">
 					<svg class="chart2"></svg>
 				</div>

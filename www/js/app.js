@@ -12,11 +12,11 @@ var ets_data = {
                 'goals': {'penalty': 0, 'avgcostpertco2e': 16},
                 'values': {'carbon_footprint': 3500000, 'free_allowances': 1200000, 'compliance_obligation': 2300000, 'penalty_price': 50},
                 'projects': [
-                  {'id':1, 'name': 'Auction Allowances', 'type': 'ets', 'price': 22, 'limit': 1500000, 'colour':'#3366cc', 'optimal_purchase_volume':1350000 },
-                  {'id':2, 'name': 'Carbon Offsets', 'type': 'ets', 'price': 4, 'limit': 500000, 'colour':'#ffffb2', 'optimal_purchase_volume':500000 },
-                  {'id':3, 'name': 'Motion Sensor Lighting Retrofit', 'type': 'project', 'price': 10, 'volume': 250000, 'colour':'#0de0e8', 'optimal_purchase_volume':250000 },
-                  {'id':4, 'name': 'Electric Car Fleet', 'type': 'project', 'price': 5000, 'volume': 1500000, 'colour':'#ff9900', 'optimal_purchase_volume':0 },
-                  {'id':5, 'name': 'Power On Use Vending Machines', 'type': 'project', 'price': 2, 'volume': 200000, 'colour':'#109618', 'optimal_purchase_volume':200000 },
+                  {'id':1, 'name': 'Auction allowances', 'type': 'ets', 'price': 22, 'limit': 1500000, 'colour':'#FFA600', 'optimal_purchase_volume':1350000 },
+                  {'id':2, 'name': 'Carbon offsets', 'type': 'ets', 'price': 4, 'limit': 500000, 'colour':'#00B295', 'optimal_purchase_volume':500000 },
+                  {'id':3, 'name': 'Motion sensor lighting retrofit', 'type': 'project', 'price': 10, 'volume': 250000, 'colour':'#E8005D', 'optimal_purchase_volume':250000 },
+                  {'id':4, 'name': 'Electric car fleet', 'type': 'project', 'price': 5000, 'volume': 200000, 'colour':'#76C3DE', 'optimal_purchase_volume':0 },
+                  {'id':5, 'name': 'Plant equipment upgrade', 'type': 'project', 'price': 2, 'volume': 200000, 'colour':'#F095FF', 'optimal_purchase_volume':200000 },
                 ]
               };
 var penalty = 0;
@@ -65,16 +65,17 @@ function init()
     items_html += '         &nbsp;';
     items_html += '      </td>';
     items_html += '      <td>';
+
     if (projects[key].type == "project")
     {
-      items_html += '       Price: $' + projects[key].price + "<br/>";
-      items_html += '       <strong>Volume:</strong> ' + numberWithCommas(projects[key].volume);
+      items_html += '       Cost per tCO<sub>2</sub>e: $' + projects[key].price + "<br/>";
+      items_html += '       <strong>Avoided tCO<sub>2</sub>e:</strong> ' + numberWithCommas(projects[key].volume);
     }
     else{
-      items_html += '       Price: $' + projects[key].price;
-      items_html += '      , Limit: ' + numberWithCommas(projects[key].limit) + "<br/>";
+      items_html += '       Cost per tCO<sub>2</sub>e: $' + projects[key].price;
+      items_html += ', Limit: ' + numberWithCommas(projects[key].limit) + "<br/>";
       items_html += '<div class="form-group">';
-      items_html += '<label for="volume_' + projects[key].id + '">Volume:&nbsp;</label>' + '<input type="input" class="form-control" id="volume_' + projects[key].id + '">' + "<br/>";
+      items_html += '<label for="volume_' + projects[key].id + '">Amount:&nbsp;</label>' + '<input type="input" class="form-control" id="volume_' + projects[key].id + '">' + "<br/>";
       items_html += '</div>';
     }
     items_html += '      </td>';
@@ -246,19 +247,27 @@ function feedback(penalty, avgcostpertco2e, volume_total){
   }
   else{
     feedback_html += "<li>Re-consider which projects and options you have selected.</li>";
+    $('#feedback_container').removeClass('btn-info');
+    $('#feedback_container').addClass('alert-warning');
   };
 
   // Check Volume
   if (volume_total!=ets_data['values']['compliance_obligation']){
     feedback_html += "<li>Re-consider the volume of each project you have purchased and that you have not exceeded the limit.</li>";
+    $('#feedback_container').removeClass('btn-info');
+    $('#feedback_container').addClass('alert-warning');
   }
 
   if ((avgcostpertco2e>9.89) & (penalty==0)){
     feedback_html += "<li>Re-consider the volume of each project you have purchased and that you have not exceeded the limit or purchased more than is required to achieve compliance.</li>";
+    $('#feedback_container').removeClass('btn-info');
+    $('#feedback_container').addClass('alert-warning');
   }
 
   if (feedback_html == ""){
-    feedback_html = "Well done! You have ensured that Enerco is compliant and does not have to pay a penalty.";
+    feedback_html = "Well done! You have ensured that your company is compliant and does not have to pay a penalty. You have also achieved the lowest possible compliance cost.";
+    $('#feedback_container').removeClass('alert-warning');
+    $('#feedback_container').addClass('btn-info');
   }
 
   $('#feedback').html("");
@@ -288,7 +297,7 @@ $(document).ready(function(){
   */
 
   var data = [
-    { year: "Year 1" }
+    { year: "ETS Phase 1" }
   ];
   var colors = [];
   var names = [];
@@ -311,7 +320,7 @@ $(document).ready(function(){
   var initial_penalty = calculate_penalty(ets_data['values']['carbon_footprint'], ets_data['values']['free_allowances'], 0, ets_data['values']['penalty_price'])
 
   var cost_data = [
-    { year: "Year 1", "Penalty":initial_penalty }
+    { year: "ETS Phase 1", "Penalty":initial_penalty }
   ];
   var cost_colors = ['#dc3912'];
   var cost_names = ['Penalty'];
@@ -325,7 +334,7 @@ $(document).ready(function(){
     "projects_names": cost_names,
     "showcomplianceamount" : false,
     "maxamount":initial_penalty,
-    "yaxislbl": "$ Cost",
+    "yaxislbl": "Amount spent ($)",
     "amountlbl": "Cost"
   });
   // render the chart
