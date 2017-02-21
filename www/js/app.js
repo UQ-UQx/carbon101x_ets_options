@@ -9,14 +9,14 @@ var SingleStackedBarChart = require('./stackedbarchart.js');
 require('bootstrap');
 
 var ets_data = {
-                'goals': {'penalty': 0, 'avgcostpertco2e': 16},
+                'goals': {'penalty': 0, 'avgcostpertco2e': 10.06},
                 'values': {'carbon_footprint': 3500000, 'free_allowances': 1200000, 'compliance_obligation': 2300000, 'penalty_price': 50},
                 'projects': [
                   {'id':1, 'name': 'Auction allowances', 'type': 'ets', 'price': 22, 'limit': 1500000, 'colour':'#FFA600', 'optimal_purchase_volume':1350000 },
                   {'id':2, 'name': 'Carbon offsets', 'type': 'ets', 'price': 4, 'limit': 500000, 'colour':'#00B295', 'optimal_purchase_volume':500000 },
                   {'id':3, 'name': 'Motion sensor lighting retrofit', 'type': 'project', 'price': 10, 'volume': 250000, 'colour':'#E8005D', 'optimal_purchase_volume':250000 },
                   {'id':4, 'name': 'Electric car fleet', 'type': 'project', 'price': 5000, 'volume': 200000, 'colour':'#76C3DE', 'optimal_purchase_volume':0 },
-                  {'id':5, 'name': 'Plant equipment upgrade', 'type': 'project', 'price': 2, 'volume': 200000, 'colour':'#F095FF', 'optimal_purchase_volume':200000 },
+                  {'id':5, 'name': 'Plant equipment upgrade', 'type': 'project', 'price': 5, 'volume': 200000, 'colour':'#F095FF', 'optimal_purchase_volume':200000 },
                 ]
               };
 var penalty = 0;
@@ -73,7 +73,7 @@ function init()
     }
     else{
       items_html += '       Cost per tCO<sub>2</sub>e: $' + projects[key].price;
-      items_html += ', Limit: ' + numberWithCommas(projects[key].limit) + "<br/>";
+      items_html += ', (Limit: ' + numberWithCommas(projects[key].limit) + ")<br/>";
       items_html += '<div class="form-group">';
       items_html += '<label for="volume_' + projects[key].id + '">Amount:&nbsp;</label>' + '<input type="input" class="form-control" id="volume_' + projects[key].id + '">' + "<br/>";
       items_html += '</div>';
@@ -100,6 +100,18 @@ function init()
     entered_value = numberWithCommas(entered_value);
     $('#'+e.target.id).val(entered_value);
     update();
+  });
+
+  $("input[id^='volume_']").keyup(function(e){
+    if(e.keyCode == 13)
+    {
+      var entered_value = e.target.value;
+      // remove any commas added by the user
+      entered_value = replaceAll(entered_value,',','');
+      entered_value = numberWithCommas(entered_value);
+      $('#'+e.target.id).val(entered_value);
+      update();  
+    }
   });
 
   $("input[name='options']").change(function(event){
@@ -212,7 +224,7 @@ function update(){
     $('#penalty_dsp').parent().addClass('btn-warning');
   }
 
-  if (avgcostpertco2e==9.89)
+  if (avgcostpertco2e==10.06)
   {
     $('#avgcostpertco2e_dsp').parent().addClass('btn-info');
   }
@@ -227,9 +239,9 @@ function update(){
 function feedback(penalty, avgcostpertco2e, volume_total){
   feedback_html = "";
   // Check order
-  if (itemOrder!="item_5,item_2,item_3,item_1,item_4")
+  if (itemOrder!="item_2,item_5,item_3,item_1,item_4")
   {
-    feedback_html += "<li>Make sure that the projects and ETS Options are ordered by Price.</li>";
+    feedback_html += "<li>Make sure that the projects and ETS Options are ordered by their cost.</li>";
   }
 
   // Check enabled project
@@ -241,25 +253,31 @@ function feedback(penalty, avgcostpertco2e, volume_total){
   }).get();
 
   mustbe_selectedOptions = ["1","2","3","5"];
-
+  /*
   if(selectedOptions.sort().join(',')=== mustbe_selectedOptions.sort().join(',')){
       //alert('same members');
   }
   else{
-    feedback_html += "<li>Re-consider which projects and options you have selected.</li>";
+    feedback_html += "<li>Have you met your compliance obligation? Select additional options to help you meet the compliance obligation.</li>";
     $('#feedback_container').removeClass('btn-info');
     $('#feedback_container').addClass('alert-warning');
   };
+  */
 
   // Check Volume
-  if (volume_total!=ets_data['values']['compliance_obligation']){
-    feedback_html += "<li>Re-consider the volume of each project you have purchased and that you have not exceeded the limit.</li>";
+  if (volume_total>ets_data['values']['compliance_obligation']){
+    feedback_html += "<li>Have you over purchased? Check that you have not exceeded the purchase limit.</li>";
+    $('#feedback_container').removeClass('btn-info');
+    $('#feedback_container').addClass('alert-warning');
+  }
+  else if (volume_total<ets_data['values']['compliance_obligation']){
+    feedback_html += "<li>Have you met your compliance obligation? Select additional options to help you meet the compliance obligation.</li>";
     $('#feedback_container').removeClass('btn-info');
     $('#feedback_container').addClass('alert-warning');
   }
 
-  if ((avgcostpertco2e>9.89) & (penalty==0)){
-    feedback_html += "<li>Re-consider the volume of each project you have purchased and that you have not exceeded the limit or purchased more than is required to achieve compliance.</li>";
+  if ((avgcostpertco2e>10.06) & (penalty==0)){
+    feedback_html += "<li>Have you purchased the most cost effective options? Cheaper options may be available.</li>";
     $('#feedback_container').removeClass('btn-info');
     $('#feedback_container').addClass('alert-warning');
   }

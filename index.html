@@ -18,7 +18,8 @@
 				<strong>Scenario:</strong>
 				<br/>
 				Your company's Scope 1 carbon footprint is 2,300,000 tCO<sub>2</sub>e, making it liable under the Tasland Emissions Trading Scheme. You must purchase one (1) allowance or offset for every tCO<sub>2</sub>e of your company's liability, otherwise the government will fine you a penalty price ($50) for every tCO2e of your shortfall. You also have the option of implementing emissions abatement projects in order to lower your carbon footprint and therefore your compliance liability.
-				<br/>
+			</p>
+			<p>
 				<strong>Goal:</strong>
 				<ul>
 					<li>Achieve the lowest possible Average Cost of Compliance ($/tCO<sub>2</sub>e); and</li>
@@ -32,13 +33,41 @@
 					<li>Select the cheapest options by clicking on the checkbox next to the option name.</li>
 					<li>If allowances or offsets are selected, you will need to decide on the amount to purchase (a limit may apply).</li>
 					<li>If an abatement project is selected, the amount of avoided CO<sub>2</sub>e will be fixed.</li>
-					<li>The selected options will be added to the __ and Total Cost graph to help you visualise if compliance has been met. The Penalty Cost and Average $/tCO<sub>2</sub>e are also displayed, to help you meet your goals.</li>
+					<li>The selected options will be added to the Compliance Activities and Total Cost graph to help you visualise if compliance has been met. The Penalty Cost and Average $/tCO<sub>2</sub>e are also displayed, to help you meet your goals.</li>
 				</ol>
 			</p>
 		</div>
 	</div>
+
+  <div class="row">
+    <div class="col-xs-5">
+			<form class="form-inline">
+				<ul id="sortable" class='sortable'>
+	      </ul>
+		</form>
+		</div>
+    <div class="col-xs-3">
+			<div class="text-center">
+				<a href="#" class="btn btn-warning btn-lg" style="cursor: default;" role="button">Penalty<br/><span id="penalty_dsp">$0</span><br/></a>
+				<h3>Compliance<br/>Activities</h3>
+				<div class="chart_container">
+			    <svg class="chart"></svg>
+			  </div>
+			</div>
+		</div>
+    <div class="col-xs-3">
+			<div class="text-center">
+				<a href="#" class="btn btn-warning btn-lg text-center" style="cursor: default;" role="button">Avg $/tCO<sub>2</sub>e<br/><span id="avgcostpertco2e_dsp">$0</span><br/></a>
+				<h3>Total<br/>Cost</h3>
+				<div class="chart_container">
+					<svg class="chart2"></svg>
+				</div>
+			</div>
+		</div>
+  </div>
 	<div class="row">
 		<div class="col-xs-12">
+			<br/>
 				<div id="feedback_container" class="alert alert-warning">
 					<strong>Feedback:</strong>
 					<p>
@@ -49,32 +78,6 @@
 				</div>
 		</div>
 	</div>
-  <div class="row">
-    <div class="col-xs-6">
-			<form class="form-inline">
-				<ul id="sortable" class='sortable'>
-	      </ul>
-		</form>
-		</div>
-    <div class="col-xs-3">
-			<div class="text-center">
-				<a href="#" class="btn btn-warning btn-lg" style="cursor: default;" role="button">Penalty<br/><span id="penalty_dsp">$0</span><br/></a>
-				<h3>Avoided tCO<sub>2</sub>e</h3>
-				<div class="chart_container">
-			    <svg class="chart"></svg>
-			  </div>
-			</div>
-		</div>
-    <div class="col-xs-3">
-			<div class="text-center">
-				<a href="#" class="btn btn-warning btn-lg text-center" style="cursor: default;" role="button">Avg $/tCO<sub>2</sub>e<br/><span id="avgcostpertco2e_dsp">$0</span><br/></a>
-				<h3>Total Cost</h3>
-				<div class="chart_container">
-					<svg class="chart2"></svg>
-				</div>
-			</div>
-		</div>
-  </div>
 </div>
 
 <script type="text/javascript" src="build/js/app.js"></script>

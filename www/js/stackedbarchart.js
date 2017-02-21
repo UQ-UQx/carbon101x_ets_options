@@ -41,7 +41,7 @@ function SingleStackedBarChart(config)
     margintop       : 20,
     marginright     : 100,
     marginbottom    : 30,
-    marginleft      : 100,
+    marginleft      : 115,
     showcomplianceamount : true,
     complianceamount     : 100000,
     compliancelabel: 'Compliance Obligation',
@@ -216,11 +216,12 @@ function SingleStackedBarChart(config)
                .attr("x2", width)    // x position of the second end of the line
                .attr("y2", y(p.complianceamount));    // y position of the second end of the line
              chartContainer.append("text")
-               .attr("x", 0)
+               .attr("x", -20)
                .attr("y", y(p.complianceamount + 50000))
                .attr("dx", 0)
                .attr("dy", ".5em")
-               .text(p.compliancelabel + ": $" + p.complianceamount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+               //.html(p.compliancelabel + ":<br/>" + p.complianceamount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " tCO<sub>2</sub>e");
+               .text(p.compliancelabel + ": " + p.complianceamount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " tCO2e");
            }
 
   }
