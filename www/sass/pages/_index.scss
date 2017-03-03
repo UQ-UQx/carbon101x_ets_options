@@ -105,13 +105,17 @@ path.domain {
 .btn { width:140px;}
 
 .sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1em; height: 110px;}
+.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1em; min-height: 110px; }
 .sortable li span { position: absolute; margin-left: -1.3em; }
 
 .movecursor {cursor: move;}
 
 .checkbox_container {
     margin-bottom: 5px;
+}
+
+.options_container{
+  min-width:320px;
 }
 
 td {

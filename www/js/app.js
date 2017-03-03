@@ -74,9 +74,9 @@ function init()
     else{
       items_html += '       Cost per tCO<sub>2</sub>e: $' + projects[key].price;
       items_html += ', (Limit: ' + numberWithCommas(projects[key].limit) + ")<br/>";
-      items_html += '<div class="form-group">';
+      //items_html += '<div class="form-group">';
       items_html += '<label for="volume_' + projects[key].id + '">Amount:&nbsp;</label>' + '<input type="input" class="form-control" id="volume_' + projects[key].id + '">' + "<br/>";
-      items_html += '</div>';
+      //items_html += '</div>';
     }
     items_html += '      </td>';
     items_html += '    </tr>';
@@ -110,7 +110,7 @@ function init()
       entered_value = replaceAll(entered_value,',','');
       entered_value = numberWithCommas(entered_value);
       $('#'+e.target.id).val(entered_value);
-      update();  
+      update();
     }
   });
 
