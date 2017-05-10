@@ -15,10 +15,12 @@ var ets_data = {
                   {'id':1, 'name': 'Auction allowances', 'type': 'ets', 'price': 22, 'limit': 1500000, 'colour':'#FFA600', 'optimal_purchase_volume':1350000 },
                   {'id':2, 'name': 'Carbon offsets', 'type': 'ets', 'price': 4, 'limit': 500000, 'colour':'#00B295', 'optimal_purchase_volume':500000 },
                   {'id':3, 'name': 'Motion sensor lighting retrofit', 'type': 'project', 'price': 10, 'volume': 250000, 'colour':'#E8005D', 'optimal_purchase_volume':250000 },
-                  {'id':4, 'name': 'Electric car fleet', 'type': 'project', 'price': 5000, 'volume': 200000, 'colour':'#76C3DE', 'optimal_purchase_volume':0 },
+                  {'id':4, 'name': 'Electric car fleet', 'type': 'project', 'price': 250, 'volume': 200000, 'colour':'#76C3DE', 'optimal_purchase_volume':0 },
                   {'id':5, 'name': 'Plant equipment upgrade', 'type': 'project', 'price': 5, 'volume': 200000, 'colour':'#F095FF', 'optimal_purchase_volume':200000 },
                 ]
               };
+
+
 var penalty = 0;
 var avgcostpertco2e = 0;
 var projects;
@@ -73,9 +75,9 @@ function init()
     }
     else{
       items_html += '       Cost per tCO<sub>2</sub>e: $' + projects[key].price;
-      items_html += ', (Limit: ' + numberWithCommas(projects[key].limit) + ")<br/>";
+      items_html += ', (Limit: ' + numberWithCommas(projects[key].limit) + ') <br/>';
       //items_html += '<div class="form-group">';
-      items_html += '<label for="volume_' + projects[key].id + '">Amount:&nbsp;</label>' + '<input type="input" class="form-control" id="volume_' + projects[key].id + '">' + "<br/>";
+      items_html += '<label for="volume_' + projects[key].id + '">Amount:&nbsp;</label>' + '<input type="input" class="form-control" id="volume_' + projects[key].id + '"><div style="color: #ff0000;" id="' + projects[key].id + '_validationstatus"></div><br/>';
       //items_html += '</div>';
     }
     items_html += '      </td>';
@@ -151,10 +153,21 @@ function update(){
       if (element.type=="ets"){
         vol_input = $('#volume_'+ id).val();
         vol_input = replaceAll(vol_input, ',', '')
+        console.log(id, vol_input);
+        if (parseInt(vol_input) > element.limit){
+          $('#' + id + "_validationstatus").html("* Limit exceeded");
+        }
+        else{
+          $('#' + id + "_validationstatus").html("");
+        }
       }
       else{
         vol_input = element.volume;
+
       }
+
+
+
       if ((vol_input!=""))
       {
         obj[projectname] = vol_input;
@@ -183,7 +196,7 @@ function update(){
   VolumeComplianceChart.attr('data', selected_options);
   VolumeComplianceChart.attr('projects_names', project_names);
   VolumeComplianceChart.attr('project_colours', project_colours);
-  VolumeComplianceChart.attr('maxamount', maxamount);
+  VolumeComplianceChart.attr('maxamount', 2750000);
   VolumeComplianceChart.update();
 
   // calcualte penalty
@@ -200,7 +213,7 @@ function update(){
   CostChart.attr('data', selected_options_cost);
   CostChart.attr('projects_names', project_names);
   CostChart.attr('project_colours', project_colours);
-  CostChart.attr('maxamount', cost_total);
+  CostChart.attr('maxamount', 150000000);
   CostChart.update(penalty_cost);
 
   //update penalty cost display
@@ -328,7 +341,7 @@ $(document).ready(function(){
     "project_colours": colors,
     "projects_names": names,
     "showcomplianceamount" : true,
-    "maxamount":ets_data['values']['compliance_obligation'],
+    "maxamount":2750000,
     "complianceamount"     : ets_data['values']['compliance_obligation'],
     "compliancelabel": 'Compliance'
   });
@@ -351,7 +364,7 @@ $(document).ready(function(){
     "project_colours": cost_colors,
     "projects_names": cost_names,
     "showcomplianceamount" : false,
-    "maxamount":initial_penalty,
+    "maxamount":150000000,
     "yaxislbl": "Amount spent ($)",
     "amountlbl": "Cost"
   });
